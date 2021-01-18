@@ -1,4 +1,5 @@
 const yargs = require("yargs")
+const { addNote, removeNote } = require('./notes')
 
 // console.log(process.argv)
 // console.log(yargs.argv)
@@ -7,8 +8,20 @@ const yargs = require("yargs")
 yargs.command({
     command: "add",
     describe: "adding notes",
-    handler: function(){
-        console.log("adding note")
+    builder: {
+        title: {
+            describe: "Title",
+            type: "string",
+            demandOption: true
+        },
+        body: {
+            describe: "Body",
+            type: "string",
+            demandOption: true
+        }
+    },
+    handler: function(argv){
+        addNote(argv.title, argv.body)
     }
 })
 
@@ -16,8 +29,15 @@ yargs.command({
 yargs.command({
     command: "remove",
     describe: "removing note",
-    handler: function(){
-        console.log("Removing note")
+    builder: {
+        title: {
+            describe: "remove note",
+            type: 'string',
+            demandOption: true
+        }
+    },
+    handler: function(argv){
+        removeNote(argv.title)
     }
 })
 
