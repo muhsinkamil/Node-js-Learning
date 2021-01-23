@@ -3,7 +3,9 @@ const getCurrentWeather = require("./utils/getCurrentWeather")
 
 console.log("Weather Report\n----------------")
 
-getLocation("Boston", (error, response) => {
+const city = process.argv.slice(2).join(" ")
+
+getLocation(city, (error, response) => {
   if (error) {
     return console.log(error)
   } else {
