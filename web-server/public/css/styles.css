@@ -5,10 +5,10 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* Partial styling */
 h1 {
-  margin: 5px;
+  margin: 50px 0 15px 15%;
   color: rgb(231, 90, 90);
-  text-align: center;
 }
 
 /* Navbar styling */
@@ -55,4 +55,27 @@ img {
 .container {
   margin-left: 15%;
   width: 70%;
+}
+
+/* styling index */
+.search-city {
+  color: rgb(180, 100, 70);
+  font-size: larger;
+  font-weight: 500;
+}
+
+.search-input {
+  margin: 20px 10px 0 0;
+  padding: 5px;
+  border-radius: 20px;
+  outline: none;
+}
+
+.submit-btn {
+  background: rgb(223, 192, 181);
+  color: black;
+  outline: none;
+  border-color: coral;
+  padding: 5px;
+  cursor: pointer;
 }

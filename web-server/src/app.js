@@ -26,7 +26,7 @@ app.get("", (req, res) => {
 // About page rendered by views(about)
 app.get("/about", (req, res) => {
   res.render("about", {
-    title: "About page",
+    title: "About",
     company: "Meteor",
   })
 })
@@ -34,7 +34,7 @@ app.get("/about", (req, res) => {
 // Help page rendered by views(help)
 app.get("/help", (req, res) => {
   res.render("help", {
-    title: "Help page",
+    title: "Help",
     message: "Information by Help page",
     company: "Meteor",
   })

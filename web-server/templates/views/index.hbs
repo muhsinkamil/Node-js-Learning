@@ -4,16 +4,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
     <link rel="stylesheet" href="/css/styles.css">
-    <title>Home</title>
 </head>
 
 <body>
     {{>header}}
     <div class="container">
-        Our Home page
+        <div class="search-city">Search for City</div>
+        <form>
+            <input type="text" placeholder="Location" class="search-input">
+            <button class="submit-btn">Submit</button>
+        </form>
+
     </div>
     {{>footer}}
+
+    <script src="/js/app.js"></script>
 </body>
 
 </html>
