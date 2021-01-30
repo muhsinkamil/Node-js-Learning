@@ -1,7 +1,58 @@
-h1 {
-    color: rgb(231, 90, 90);
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-img{
-    width: 400px;
+h1 {
+  margin: 5px;
+  color: rgb(231, 90, 90);
+  text-align: center;
+}
+
+/* Navbar styling */
+nav {
+  height: 60px;
+  background: coral;
+}
+
+nav ul {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  list-style-type: none;
+  height: 100%;
+}
+
+nav li a {
+  padding: 20px;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+/* Finishing navbar styling */
+
+img {
+  margin: auto auto;
+  width: 200px;
+}
+
+.copyright {
+  background: rgb(214, 203, 203);
+  padding: 10px;
+  color: #000;
+  text-align: center;
+  /* sticking footer to bottom of page */
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.container {
+  margin-left: 15%;
+  width: 70%;
 }
