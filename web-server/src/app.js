@@ -35,15 +35,22 @@ app.get("/about", (req, res) => {
 app.get("/help", (req, res) => {
   res.render("help", {
     title: "Help",
-    message: "Information by Help page",
+    subtitle: "FAQ",
     company: "Meteor",
   })
 })
 
 app.get("/weather", (req, res) => {
+  if (!req.query.location) {
+    return res.send({
+      error: "Search Term missing",
+    })
+  }
+
   res.send({
     forecast: "cloudy",
     location: "London",
+    address: req.query.location,
   })
 })
 

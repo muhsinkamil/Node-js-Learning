@@ -7,13 +7,13 @@
 
 /* Partial styling */
 h1 {
-  margin: 50px 0 15px 15%;
+  margin: 3% 0 15px 15%;
   color: rgb(231, 90, 90);
 }
 
 /* Navbar styling */
 nav {
-  height: 60px;
+  height: 10vh;
   background: coral;
 }
 
@@ -35,29 +35,31 @@ nav li a {
 
 /* Finishing navbar styling */
 
-img {
-  margin: auto auto;
-  width: 200px;
-}
-
 .copyright {
   background: rgb(214, 203, 203);
   padding: 10px;
   color: #000;
   text-align: center;
-  /* sticking footer to bottom of page */
-  position: absolute;
+  position: fixed;
+  bottom: 0;
   left: 0;
   right: 0;
-  bottom: 0;
 }
 
 .container {
   margin-left: 15%;
-  width: 70%;
+  height: 70vh;
+  width: 80%;
 }
 
-/* styling index */
+/* Home */
+.content {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 40% auto;
+}
+
 .search-city {
   color: rgb(180, 100, 70);
   font-size: larger;
@@ -66,8 +68,9 @@ img {
 
 .search-input {
   margin: 20px 10px 0 0;
-  padding: 5px;
+  padding: 10px;
   border-radius: 20px;
+  width: 70%;
   outline: none;
 }
 
@@ -76,6 +79,48 @@ img {
   color: black;
   outline: none;
   border-color: coral;
-  padding: 5px;
+  padding: 10px;
+  border-radius: 10px;
   cursor: pointer;
+}
+
+.svg-item {
+  display: flex;
+  justify-content: center;
+  align-self: center;
+}
+
+.rain-man {
+  height: 50%;
+  width: 50%;
+}
+
+/* About */
+.para-text {
+  line-height: 25px;
+  margin-bottom: 1%;
+}
+
+.logo-container {
+  padding-bottom: 20%;
+}
+
+.about-logo {
+  margin: auto;
+  width: 200px;
+}
+
+/* Help Page */
+
+h2 {
+  margin: 3% 0 15px 0;
+  color: rgb(231, 90, 90);
+}
+
+.faq-container {
+  padding-bottom: 5%;
+}
+
+.faq-qn {
+  margin: 1% 0;
 }
