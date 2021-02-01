@@ -8,7 +8,6 @@ const API_KEY = process.env.API_KEY
 const getLocation = async (city, callback) => {
   if (!city) {
     callback("Please enter a city")
-    
   } else {
     const url = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${API_KEY}`
 
@@ -19,7 +18,6 @@ const getLocation = async (city, callback) => {
       } else {
         callback("Location not found!! Try again!!")
       }
-
     } catch (err) {
       callback("Something went wrong !!")
     }

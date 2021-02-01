@@ -57,7 +57,12 @@ nav li a {
   height: 100%;
   width: 100%;
   display: grid;
-  grid-template-columns: 40% auto;
+  grid-template-columns: 50% auto;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
 }
 
 .search-city {
@@ -67,10 +72,10 @@ nav li a {
 }
 
 .search-input {
-  margin: 20px 10px 0 0;
+  margin: 20px 10px 5% 0;
   padding: 10px;
   border-radius: 20px;
-  width: 70%;
+  min-width: 70%;
   outline: none;
 }
 
@@ -82,6 +87,8 @@ nav li a {
   padding: 10px;
   border-radius: 10px;
   cursor: pointer;
+  max-width: 60%;
+  text-transform: uppercase;
 }
 
 .svg-item {
@@ -91,8 +98,8 @@ nav li a {
 }
 
 .rain-man {
-  height: 50%;
-  width: 50%;
+  height: 60%;
+  width: 60%;
 }
 
 /* About */

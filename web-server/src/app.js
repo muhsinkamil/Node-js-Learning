@@ -7,6 +7,9 @@ const publicFolder = path.join(__dirname, "../public")
 const viewsFolder = path.join(__dirname, "../templates/views")
 const partialFolder = path.join(__dirname, "../templates/partials")
 
+const getLocation = require("../utils/getLocation")
+const getCurrentWeather = require("../utils/getCurrentWeather")
+
 // set up for rendering static files
 app.use(express.static(publicFolder))
 
@@ -41,16 +44,26 @@ app.get("/help", (req, res) => {
 })
 
 app.get("/weather", (req, res) => {
-  if (!req.query.location) {
-    return res.send({
-      error: "Search Term missing",
+  getLocation(req.query.location, (error, response) => {
+    if (error) {
+      return res.send({
+        error,
+      })
+    }
+    getCurrentWeather(response.lat, response.lon, (error, currentWeather) => {
+      if (error) {
+        return res.send({
+          error,
+        })
+      }
+      res.send({
+        latitude: currentWeather.coord.lat,
+        longitude: currentWeather.coord.lon,
+        location: currentWeather.name,
+        Description: currentWeather.weather[0].description,
+        Temperature: currentWeather.main.temp,
+      })
     })
-  }
-
-  res.send({
-    forecast: "cloudy",
-    location: "London",
-    address: req.query.location,
   })
 })
 
