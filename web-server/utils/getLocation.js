@@ -19,7 +19,7 @@ const getLocation = async (city, callback) => {
         callback("Location not found!! Try again!!")
       }
     } catch (err) {
-      callback("Something went wrong !!")
+      callback("Something went wrong !! Could not get Location")
     }
   }
 }

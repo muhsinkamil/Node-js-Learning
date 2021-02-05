@@ -23,7 +23,7 @@ hbs.registerPartials(partialFolder)
 // Home page rendered by views(index)
 app.get("", (req, res) => {
   res.render("index", {
-    title: "Weather App",
+    title: "Meteor",
     company: "Meteor",
   })
 })
