@@ -21,7 +21,8 @@ form.addEventListener("submit", (e) => {
         weatherText.className = "weather-data"
 
         locationText.textContent = res.location
-        weatherText.textContent = `Current temperature is ${res.temperature}.\r\n\r\nHowever, it feels like it's ${res.feelsLike}.\r\n\r\nWind Speed: ${res.windSpeed}, \r\n\r\nPressure: ${res.pressure},\r\n\r\nHumidity: ${res.humidity}`
+        // weatherText.textContent = `Current temperature is ${res.temperature}.\r\n\r\nHowever, it feels like it's ${res.feelsLike}.\r\n\r\nWind Speed: ${res.windSpeed}, \r\n\r\nPressure: ${res.pressure},\r\n\r\nHumidity: ${res.humidity}`
+        weatherText.textContent = `Current temperature is ${res.temperature}.However, it feels like it's ${res.feelsLike}.Wind Speed: ${res.windSpeed}, Pressure: ${res.pressure},Humidity: ${res.humidity}`
       }
     })
 })
