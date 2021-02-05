@@ -91,15 +91,40 @@ form {
   text-transform: uppercase;
 }
 
-.svg-item {
+.form-item {
   display: flex;
-  justify-content: center;
-  align-self: center;
+  flex-direction: column;
 }
 
-.rain-man {
-  height: 60%;
-  width: 60%;
+#location {
+  margin-top: 5%;
+}
+
+#weather {
+  margin-top: 5%;
+}
+
+.error {
+  color: red;
+}
+
+.success {
+  color: rgb(214, 37, 132);
+  font-weight: bold;
+  font-size: larger;
+}
+
+.weather-data {
+  white-space: pre;
+}
+
+.svg-item {
+  height: 95%;
+  width: 95%;
+  align-self: center;
+  background: url("/img/RainMan.svg");
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 /* About */

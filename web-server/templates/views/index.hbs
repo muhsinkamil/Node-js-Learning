@@ -15,13 +15,15 @@
             <div class="form-item">
                 <div class="search-city">Search for City</div>
                 <form>
-                    <input type="text" placeholder="Location" name="location" class="search-input">
-                    <button class="submit-btn">Submit</button>
+                    <input type="text" placeholder="Location" name="location" class="search-input" id="search-location"
+                        autocomplete="off">
+                    <button class="submit-btn" id="submit-location">Submit</button>
                 </form>
+
+                <p id="location"></p>
+                <p id="weather"></p>
             </div>
-            <div class="svg-item">
-                <img src="/img/RainMan.svg" class="rain-man" alt="Vector">
-            </div>
+            <div class="svg-item" />
         </div>
     </div>
     {{>footer}}

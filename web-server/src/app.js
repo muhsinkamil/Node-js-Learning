@@ -7,6 +7,8 @@ const publicFolder = path.join(__dirname, "../public")
 const viewsFolder = path.join(__dirname, "../templates/views")
 const partialFolder = path.join(__dirname, "../templates/partials")
 
+const port = process.env.PORT || 3090
+
 const getLocation = require("../utils/getLocation")
 const getCurrentWeather = require("../utils/getCurrentWeather")
 
@@ -57,11 +59,13 @@ app.get("/weather", (req, res) => {
         })
       }
       res.send({
-        latitude: currentWeather.coord.lat,
-        longitude: currentWeather.coord.lon,
         location: currentWeather.name,
-        Description: currentWeather.weather[0].description,
-        Temperature: currentWeather.main.temp,
+        description: currentWeather.weather[0].description,
+        temperature: currentWeather.main.temp,
+        feelsLike: currentWeather.main.feels_like || "perfect",
+        pressure: currentWeather.main.pressure,
+        humidity: currentWeather.main.humidity,
+        windSpeed: currentWeather.wind.speed,
       })
     })
   })
@@ -84,6 +88,6 @@ app.get("*", (req, res) => {
   })
 })
 
-app.listen(3090, () => {
-  console.log("server listening at port 3090")
+app.listen(port, () => {
+  console.log("server listening at port ", port)
 })
