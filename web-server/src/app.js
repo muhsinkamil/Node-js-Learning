@@ -23,8 +23,8 @@ hbs.registerPartials(partialFolder)
 // Home page rendered by views(index)
 app.get("", (req, res) => {
   res.render("index", {
-    title: "Meteor",
-    company: "Meteor",
+    title: "Weather Anytime",
+    company: "Weather Anytime",
   })
 })
 
@@ -32,7 +32,7 @@ app.get("", (req, res) => {
 app.get("/about", (req, res) => {
   res.render("about", {
     title: "About",
-    company: "Meteor",
+    company: "Weather Anytime",
   })
 })
 
@@ -41,7 +41,7 @@ app.get("/help", (req, res) => {
   res.render("help", {
     title: "Help",
     subtitle: "FAQ",
-    company: "Meteor",
+    company: "Weather Anytime",
   })
 })
 
@@ -75,7 +75,7 @@ app.get("/help/*", (req, res) => {
   res.render("404Page", {
     title: "404 Help not found",
     errorMessage: "Help article not found",
-    company: "Meteor",
+    company: "Weather Anytime",
   })
 })
 
@@ -84,7 +84,7 @@ app.get("*", (req, res) => {
   res.render("404Page", {
     title: "404Page",
     errorMessage: "Page not found",
-    company: "Meteor",
+    company: "Weather Anytime",
   })
 })
 

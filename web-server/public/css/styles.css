@@ -103,8 +103,7 @@ form {
 
 #weather {
   margin-top: 5%;
-  width: auto;
-  word-wrap: break-word;
+  line-height: 2rem;
 }
 
 .error {
@@ -115,10 +114,6 @@ form {
   color: rgb(214, 37, 132);
   font-weight: bold;
   font-size: larger;
-}
-
-.weather-data {
-  white-space: pre;
 }
 
 .svg-item {
@@ -134,6 +129,10 @@ form {
 .para-text {
   line-height: 25px;
   margin-bottom: 1%;
+}
+
+.last-para {
+  padding-bottom: 5rem;
 }
 
 .logo-container {
