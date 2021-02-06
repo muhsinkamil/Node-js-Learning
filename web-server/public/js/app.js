@@ -22,7 +22,7 @@ form.addEventListener("submit", (e) => {
 
         locationText.textContent = res.location
 
-        weatherText.innerHTML = `<b style='color:rgb(214, 37, 132)'>Current temperature</b> is ${res.temperature}.However, it feels like it's ${res.feelsLike}.<b style='color:rgb(214, 37, 132)'>With Wind Speed</b> of ${res.windSpeed} km/h, <b style='color:rgb(214, 37, 132)'>Pressure</b> ${res.pressure} mb,and has <b style='color:rgb(214, 37, 132)'>Humidity</b> ${res.humidity} %`
+        weatherText.innerHTML = `<b style='color:rgb(214, 37, 132)'>Current temperature</b> is ${res.temperature} K. However, it feels like it's ${res.feelsLike} K. <b style='color:rgb(214, 37, 132)'>With Wind Speed</b> of ${res.windSpeed} m/s, <b style='color:rgb(214, 37, 132)'>Pressure</b> ${res.pressure} hPa and has <b style='color:rgb(214, 37, 132)'>Humidity</b> ${res.humidity} %`
       }
     })
 })

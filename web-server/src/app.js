@@ -60,7 +60,6 @@ app.get("/weather", (req, res) => {
       }
       res.send({
         location: currentWeather.name,
-        description: currentWeather.weather[0].description,
         temperature: currentWeather.main.temp,
         feelsLike: currentWeather.main.feels_like || "perfect",
         pressure: currentWeather.main.pressure,
