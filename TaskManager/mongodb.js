@@ -99,5 +99,60 @@ MongoClient.connect(
     //     console.log(" ------ Getting unfinished tasks ---")
     //     console.log(result)
     //   })
+
+    // Update:
+
+    // db.collection("tasks")
+    //   .updateOne(
+    //     { _id: new ObjectID("60210e27bd70a430a45db269") },
+    //     {
+    //       $set: {
+    //         description: "Buy sugar",
+    //         price: 50,
+    //       },
+    //     }
+    //   )
+    //   .then((res) => console.log(res))
+    //   .catch((error) => console.log(error))
+
+    // db.collection("tasks")
+    //   .updateOne(
+    //     {
+    //       _id: new ObjectID("60210e27bd70a430a45db269"),
+    //     },
+    //     {
+    //       $inc: {
+    //         price: 5,
+    //       },
+    //     }
+    //   )
+    //   .then((res) => console.log(res))
+    //   .catch((error) => console.log(error))
+
+    // db.collection("tasks")
+    //   .updateMany(
+    //     { completed: false },
+    //     {
+    //       $set: {
+    //         completed: true,
+    //       },
+    //     }
+    //   )
+    //   .then((res) => console.log(res))
+    //   .catch((error) => console.log(error))
+
+    // DELETE:
+
+    // db.collection("tasks")
+    //   .deleteOne({
+    //     _id: new ObjectID("60210e27bd70a430a45db26a"),
+    //   })
+    //   .then((res) => console.log(res))
+    //   .catch((err) => console.log("Error deleting", error))
+
+    // db.collection("tasks")
+    //   .deleteMany({})
+    //   .then((res) => console.log("Deleted all"))
+    //   .catch((error) => console.log("Error deleting all"))
   }
 )
