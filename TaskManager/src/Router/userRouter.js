@@ -8,8 +8,10 @@ router.post("/users/signup", async (req, res) => {
   const user = new User(req.body)
 
   try {
-    const newUser = await user.save()
-    res.status(201).send(newUser)
+    await user.save()
+    const token = await user.generateJWT()
+
+    res.status(201).send({ user, token })
   } catch (e) {
     res.status(400).send(e)
   }
@@ -94,7 +96,9 @@ router.post("/users/login", async (req, res) => {
 
   try {
     const user = await User.findByCredentials(email, password)
-    res.send(user)
+
+    const token = await user.generateJWT()
+    res.send({ user, token })
   } catch (e) {
     res.status(404).send(e)
   }

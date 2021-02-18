@@ -1,6 +1,8 @@
+require("dotenv").config()
 const mongoose = require("mongoose")
 const validator = require("validator")
 const bcrypt = require("bcrypt")
+const jwt = require("jsonwebtoken")
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -39,7 +41,30 @@ const userSchema = new mongoose.Schema({
       }
     },
   },
+  // Tokens has a array of token that the user has on logging on multiple devices. Tokens has an array of objects. Each object has a prop called token which is a string and is required.
+  tokens: [
+    {
+      token: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
 })
+
+// Issue jwt
+userSchema.methods.generateJWT = async function () {
+  const token = jwt.sign(
+    { _id: this._id.toString() },
+    process.env.ACCESS_TOKEN_SECRET,
+    { expiresIn: "1s" }
+  )
+
+  this.tokens = this.tokens.concat({ token })
+  await this.save()
+
+  return token
+}
 
 // Check if email and password is correct
 userSchema.statics.findByCredentials = async (email, password) => {
@@ -60,9 +85,9 @@ userSchema.statics.findByCredentials = async (email, password) => {
 
 // before saving hash the password
 userSchema.pre("save", async function (next) {
-  console.log("running middleware")
+  // console.log("running middleware")
 
-  console.log(this.isModified("password"))
+  // console.log(this.isModified("password"))
 
   if (this.isModified("password")) {
     // Hash the password
