@@ -1,9 +1,10 @@
 const express = require("express")
 const router = new express.Router()
+const bcrypt = require("bcrypt")
 const User = require("../db/models/User")
 
-// CREATE
-router.post("/users", async (req, res) => {
+// CREATE USER / SIGNUP
+router.post("/users/signup", async (req, res) => {
   const user = new User(req.body)
 
   try {
@@ -50,10 +51,19 @@ router.patch("/users/:id", async (req, res) => {
   }
 
   try {
-    const user = await User.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-      runValidators: true,
-    })
+    // since findByIdAndUpdate bypasses the middleware, change to findById.
+    const user = await User.findById(req.params.id)
+
+    if (!user) {
+      res.status(404).send("User not found")
+    }
+
+    // dynamically update the properties
+    updates.forEach((update) => (user[update] = req.body[update]))
+
+    // save the changed user
+    await user.save()
+
     if (!user) {
       return res.status(404).send()
     }
@@ -75,6 +85,18 @@ router.delete("/users/:id", async (req, res) => {
     res.send(user)
   } catch (e) {
     res.status(500).send(e)
+  }
+})
+
+// login
+router.post("/users/login", async (req, res) => {
+  const { email, password } = req.body
+
+  try {
+    const user = await User.findByCredentials(email, password)
+    res.send(user)
+  } catch (e) {
+    res.status(404).send(e)
   }
 })
 
