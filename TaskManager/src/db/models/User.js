@@ -57,7 +57,7 @@ userSchema.methods.generateJWT = async function () {
   const token = jwt.sign(
     { _id: this._id.toString() },
     process.env.ACCESS_TOKEN_SECRET,
-    { expiresIn: "1s" }
+    { expiresIn: "3 days" }
   )
 
   this.tokens = this.tokens.concat({ token })

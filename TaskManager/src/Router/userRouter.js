@@ -3,6 +3,9 @@ const router = new express.Router()
 const bcrypt = require("bcrypt")
 const User = require("../db/models/User")
 
+// Middleware
+const auth = require("../middleware/auth")
+
 // CREATE USER / SIGNUP
 router.post("/users/signup", async (req, res) => {
   const user = new User(req.body)
@@ -17,17 +20,50 @@ router.post("/users/signup", async (req, res) => {
   }
 })
 
-// READ
-router.get("/users", async (req, res) => {
+// login
+router.post("/users/login", async (req, res) => {
+  const { email, password } = req.body
+
   try {
-    const users = await User.find({})
-    res.send(users)
+    const user = await User.findByCredentials(email, password)
+
+    const token = await user.generateJWT()
+    res.send({ user, token })
+  } catch (e) {
+    res.status(404).send(e)
+  }
+})
+
+router.post("/users/logout", auth, async (req, res) => {
+  try {
+    req.user.tokens = req.user.tokens.filter(
+      (token) => token.token !== req.token
+    )
+
+    await req.user.save()
+
+    res.send()
   } catch (e) {
     res.status(500).send()
   }
 })
 
-router.get("/users/:id", async (req, res) => {
+router.post("/users/logoutall", auth, async (req, res) => {
+  try {
+    req.user.tokens = []
+    await req.user.save()
+    res.send()
+  } catch (e) {
+    res.status(500).send(e)
+  }
+})
+
+// READ
+router.get("/users/me", auth, async (req, res) => {
+  res.send(req.user)
+})
+
+router.get("/users/:id", auth, async (req, res) => {
   try {
     const user = await User.findById(req.params.id)
     if (!user) {
@@ -40,7 +76,7 @@ router.get("/users/:id", async (req, res) => {
 })
 
 // UPDATE
-router.patch("/users/:id", async (req, res) => {
+router.patch("/users/:id", auth, async (req, res) => {
   const updates = Object.keys(req.body)
   const allowedUpdates = ["name", "age", "email", "password"]
 
@@ -77,7 +113,7 @@ router.patch("/users/:id", async (req, res) => {
 
 // DELETE
 
-router.delete("/users/:id", async (req, res) => {
+router.delete("/users/:id", auth, async (req, res) => {
   try {
     const user = await User.findByIdAndDelete(req.params.id)
     if (!user) {
@@ -87,20 +123,6 @@ router.delete("/users/:id", async (req, res) => {
     res.send(user)
   } catch (e) {
     res.status(500).send(e)
-  }
-})
-
-// login
-router.post("/users/login", async (req, res) => {
-  const { email, password } = req.body
-
-  try {
-    const user = await User.findByCredentials(email, password)
-
-    const token = await user.generateJWT()
-    res.send({ user, token })
-  } catch (e) {
-    res.status(404).send(e)
   }
 })
 
