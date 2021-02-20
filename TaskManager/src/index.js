@@ -9,8 +9,8 @@ const taskRouter = require("./Router/taskRouter")
 const app = express()
 
 app.use(express.json())
-app.use(userRouter)
-app.use(taskRouter)
+app.use("/users", userRouter)
+app.use("/tasks", taskRouter)
 
 app.listen(port, () => {
   console.log("server started at", port)

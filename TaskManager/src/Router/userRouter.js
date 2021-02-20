@@ -7,7 +7,7 @@ const User = require("../db/models/User")
 const auth = require("../middleware/auth")
 
 // CREATE USER / SIGNUP
-router.post("/users/signup", async (req, res) => {
+router.post("/signup", async (req, res) => {
   const user = new User(req.body)
 
   try {
@@ -21,7 +21,7 @@ router.post("/users/signup", async (req, res) => {
 })
 
 // login
-router.post("/users/login", async (req, res) => {
+router.post("/login", async (req, res) => {
   const { email, password } = req.body
 
   try {
@@ -34,7 +34,8 @@ router.post("/users/login", async (req, res) => {
   }
 })
 
-router.post("/users/logout", auth, async (req, res) => {
+//logout
+router.post("/logout", auth, async (req, res) => {
   try {
     req.user.tokens = req.user.tokens.filter(
       (token) => token.token !== req.token
@@ -48,7 +49,8 @@ router.post("/users/logout", auth, async (req, res) => {
   }
 })
 
-router.post("/users/logoutall", auth, async (req, res) => {
+//logout of all devices
+router.post("/logoutall", auth, async (req, res) => {
   try {
     req.user.tokens = []
     await req.user.save()
@@ -59,24 +61,24 @@ router.post("/users/logoutall", auth, async (req, res) => {
 })
 
 // READ
-router.get("/users/me", auth, async (req, res) => {
+router.get("/me", auth, async (req, res) => {
   res.send(req.user)
 })
 
-router.get("/users/:id", auth, async (req, res) => {
-  try {
-    const user = await User.findById(req.params.id)
-    if (!user) {
-      return res.status(404).send()
-    }
-    res.send(user)
-  } catch (e) {
-    res.status(500).send(e)
-  }
-})
+// router.get("/:id", auth, async (req, res) => {
+//   try {
+//     const user = await User.findById(req.params.id)
+//     if (!user) {
+//       return res.status(404).send()
+//     }
+//     res.send(user)
+//   } catch (e) {
+//     res.status(500).send(e)
+//   }
+// })
 
 // UPDATE
-router.patch("/users/:id", auth, async (req, res) => {
+router.patch("/me", auth, async (req, res) => {
   const updates = Object.keys(req.body)
   const allowedUpdates = ["name", "age", "email", "password"]
 
@@ -90,37 +92,34 @@ router.patch("/users/:id", auth, async (req, res) => {
 
   try {
     // since findByIdAndUpdate bypasses the middleware, change to findById.
-    const user = await User.findById(req.params.id)
+    // const user = await User.findById(req.user._id)
 
-    if (!user) {
-      res.status(404).send("User not found")
-    }
+    // if (!user) {
+    //   res.status(404).send("User not found")
+    // }
 
     // dynamically update the properties
-    updates.forEach((update) => (user[update] = req.body[update]))
+    updates.forEach((update) => (req.user[update] = req.body[update]))
 
     // save the changed user
-    await user.save()
+    await req.user.save()
 
-    if (!user) {
-      return res.status(404).send()
-    }
-    res.send(user)
+    res.send(req.user)
   } catch (e) {
     res.status(500).send(e)
   }
 })
 
 // DELETE
-
-router.delete("/users/:id", auth, async (req, res) => {
+router.delete("/me", auth, async (req, res) => {
   try {
-    const user = await User.findByIdAndDelete(req.params.id)
-    if (!user) {
-      return res.status(404).send()
-    }
+    // const user = await User.findByIdAndDelete(req.user._id)
+    // if (!user) {
+    //   return res.status(404).send()
+    // }
 
-    res.send(user)
+    await req.user.remove()
+    res.send(req.user)
   } catch (e) {
     res.status(500).send(e)
   }

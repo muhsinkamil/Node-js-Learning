@@ -3,6 +3,7 @@ const mongoose = require("mongoose")
 const validator = require("validator")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
+const Task = require("./Task")
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -52,6 +53,23 @@ const userSchema = new mongoose.Schema({
   ],
 })
 
+// Make a virtual field that associate with task
+userSchema.virtual("tasks", {
+  ref: "Task",
+  localField: "_id",
+  foreignField: "owner",
+})
+
+// hiding private info when sending back the response
+userSchema.methods.toJSON = function () {
+  const user = this.toObject()
+
+  delete user.password
+  delete user.tokens
+
+  return user
+}
+
 // Issue jwt
 userSchema.methods.generateJWT = async function () {
   const token = jwt.sign(
@@ -93,6 +111,13 @@ userSchema.pre("save", async function (next) {
     // Hash the password
     this.password = await bcrypt.hash(this.password, 10)
   }
+
+  next()
+})
+
+// deletes user tasks when the user is removed.
+userSchema.pre("remove", async function (next) {
+  await Task.deleteMany({ owner: this._id })
 
   next()
 })
