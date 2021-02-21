@@ -21,13 +21,26 @@ router.post("/", auth, async (req, res) => {
 })
 
 // READ
+// Filter: completed = true
+// Queries: ?limit={num}  skip={num}
+
 router.get("/", auth, async (req, res) => {
   try {
-    const tasks = await Task.find({ owner: req.user._id })
+    // const tasks = await Task.find({ owner: req.user._id })
+    // res.send(tasks)
+    const match = {}
 
-    res.send(tasks)
-    // await req.user.populate("tasks").execPopulate()
-    // res.send(req.user.tasks)
+    if (req.query.completed) {
+      match["completed"] = req.query.completed === "true"
+    }
+
+    await req.user
+      .populate({
+        path: "tasks",
+        match,
+      })
+      .execPopulate()
+    res.send(req.user.tasks)
   } catch (e) {
     res.status(500).send(e)
   }

@@ -5,53 +5,58 @@ const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 const Task = require("./Task")
 
-const userSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-    trim: true,
-  },
-  age: {
-    type: Number,
-    default: 1,
-    validate(value) {
-      if (value <= 0) {
-        throw new Error("Age must be valid number")
-      }
+const userSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+      trim: true,
     },
-  },
-  email: {
-    type: String,
-    unique: true,
-    required: true,
-    trim: true,
-    lowercase: true,
-    validate(value) {
-      if (!validator.isEmail(value)) {
-        throw new Error("Email is invalid")
-      }
-    },
-  },
-  password: {
-    type: String,
-    required: true,
-    trim: true,
-    validate(value) {
-      if (!validator.isLength(value, { min: 6 }) || value === "password") {
-        throw new Error("Password is too weak")
-      }
-    },
-  },
-  // Tokens has a array of token that the user has on logging on multiple devices. Tokens has an array of objects. Each object has a prop called token which is a string and is required.
-  tokens: [
-    {
-      token: {
-        type: String,
-        required: true,
+    age: {
+      type: Number,
+      default: 1,
+      validate(value) {
+        if (value <= 0) {
+          throw new Error("Age must be valid number")
+        }
       },
     },
-  ],
-})
+    email: {
+      type: String,
+      unique: true,
+      required: true,
+      trim: true,
+      lowercase: true,
+      validate(value) {
+        if (!validator.isEmail(value)) {
+          throw new Error("Email is invalid")
+        }
+      },
+    },
+    password: {
+      type: String,
+      required: true,
+      trim: true,
+      validate(value) {
+        if (!validator.isLength(value, { min: 6 }) || value === "password") {
+          throw new Error("Password is too weak")
+        }
+      },
+    },
+    // Tokens has a array of token that the user has on logging on multiple devices. Tokens has an array of objects. Each object has a prop called token which is a string and is required.
+    tokens: [
+      {
+        token: {
+          type: String,
+          required: true,
+        },
+      },
+    ],
+  },
+  {
+    timestamps: true,
+  }
+)
 
 // Make a virtual field that associate with task
 userSchema.virtual("tasks", {
