@@ -32,11 +32,6 @@ router.get("/", auth, async (req, res) => {
     const match = {}
     const sort = {}
 
-    const options = {
-      limit: parseInt(req.query.limit),
-      skip: parseInt(req.query.skip),
-    }
-
     if (req.query.completed) {
       match["completed"] = req.query.completed === "true"
     }

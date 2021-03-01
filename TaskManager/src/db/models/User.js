@@ -52,6 +52,9 @@ const userSchema = new mongoose.Schema(
         },
       },
     ],
+    avatar: {
+      type: Buffer,
+    },
   },
   {
     timestamps: true,
@@ -67,12 +70,13 @@ userSchema.virtual("tasks", {
 
 // hiding private info when sending back the response
 userSchema.methods.toJSON = function () {
-  const user = this.toObject()
+  const { password, tokens, avatar, ...rest } = this.toObject()
 
-  delete user.password
-  delete user.tokens
+  // delete user.password
+  // delete user.tokens
+  // delete user.avatar
 
-  return user
+  return rest
 }
 
 // Issue jwt
