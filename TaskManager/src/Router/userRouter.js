@@ -1,6 +1,7 @@
 const express = require("express")
 const router = new express.Router()
 const User = require("../db/models/User")
+const { sendWelcomeMail, sendByeMail } = require("../emails/account")
 
 const multer = require("multer")
 const upload = multer({
@@ -27,7 +28,7 @@ router.post("/signup", async (req, res) => {
   try {
     await user.save()
     const token = await user.generateJWT()
-
+    sendWelcomeMail(user.email, user.name)
     res.status(201).send({ user, token })
   } catch (e) {
     res.status(400).send(e)
@@ -133,6 +134,7 @@ router.delete("/me", auth, async (req, res) => {
     // }
 
     await req.user.remove()
+    sendByeMail(req.user.email, req.user.name)
     res.send(req.user)
   } catch (e) {
     res.status(500).send(e)
